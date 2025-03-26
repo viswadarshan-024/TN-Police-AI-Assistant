@@ -27,7 +27,7 @@ class DocumentSearchEngine:
         """
         try:
             # Check if index directory exists
-            if not os.listdir(index_path):
+            if not os.path.exists(index_path):
                 # st.warning(f"Index directory {index_path} does not exist. No pre-indexed documents will be loaded.")
                 return False
 
