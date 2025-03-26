@@ -124,15 +124,13 @@ class DocumentSearchEngine:
 class TamilNaduPoliceLegalAssistant:
     def __init__(self):
         # Load environment variables
-        # load_dotenv()
+        load_dotenv()
 
-        # # API Configurations
-        # self.google_search_api_key = os.getenv('GOOGLE_SEARCH_API_KEY')
-        # self.google_cse_id = os.getenv('GOOGLE_CSE_ID')
-        # self.groq_api_key = os.getenv('GROQ_API_KEY')
-        self.google_search_api_key = 'AIzaSyDU6JzVGBpJCLei7fHDXH6aiDVpjE--3MQ'
-        self.google_cse_id = '14d4c743d876041d1'
-        self.groq_api_key = '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'
+        # API Configurations
+        self.google_search_api_key = os.getenv('GOOGLE_SEARCH_API_KEY')
+        self.google_cse_id = os.getenv('GOOGLE_CSE_ID')
+        self.groq_api_key = os.getenv('GROQ_API_KEY')
+
         # Initialize logging
         logging.basicConfig(
             level=logging.INFO,
