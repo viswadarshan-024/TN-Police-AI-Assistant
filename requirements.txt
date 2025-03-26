@@ -12,3 +12,4 @@ faiss-cpu
 torch
 pdf2image
 unstructured
+google-api-python-client
