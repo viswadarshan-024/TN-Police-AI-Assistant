@@ -130,7 +130,7 @@ class TamilNaduPoliceLegalAssistant:
         self.google_search_api_key = os.getenv('GOOGLE_SEARCH_API_KEY')
         self.google_cse_id = os.getenv('GOOGLE_CSE_ID')
         self.groq_api_key = os.getenv('GROQ_API_KEY')
-
+    
         # Initialize logging
         logging.basicConfig(
             level=logging.INFO,
