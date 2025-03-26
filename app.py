@@ -484,7 +484,7 @@ def create_about_page():
     """, unsafe_allow_html=True)
 
     st.title("LexWay AI")
-    st.title("## About Tamil Nadu Police Legal Assistant")
+    st.markdown("## About Tamil Nadu Police Legal Assistant")
     
     # About section with markdown formatting
     st.markdown("""
