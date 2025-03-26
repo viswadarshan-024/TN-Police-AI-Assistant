@@ -3,8 +3,9 @@ python-dotenv
 requests
 groq
 langchain
-langchain-community
+langchain_community
 langchain-core
+pydantic
 langchain-groq
 sentence-transformers
 faiss-cpu
