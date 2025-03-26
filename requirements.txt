@@ -1,0 +1,13 @@
+streamlit
+python-dotenv
+requests
+groq
+langchain
+langchain-community
+langchain-core
+langchain-groq
+sentence-transformers
+faiss-cpu
+torch
+pdf2image
+unstructured
