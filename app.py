@@ -5,7 +5,6 @@ import logging
 from typing import List, Dict, Any
 from dotenv import load_dotenv
 
-# Langchain Imports
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import PyPDFLoader, TextLoader
 from langchain_community.vectorstores import FAISS
@@ -28,7 +27,7 @@ class DocumentSearchEngine:
         """
         try:
             # Check if index directory exists
-            if not os.path.exists(index_path):
+            if not os.listdir(index_path):
                 # st.warning(f"Index directory {index_path} does not exist. No pre-indexed documents will be loaded.")
                 return False
 
@@ -230,7 +229,7 @@ class TamilNaduPoliceLegalAssistant:
             response_prompt = PromptTemplate(
                 input_variables=['query', 'sources'],
                 template="""
-            You are an AI Assistant for the Tamil Nadu Police Department. 
+            You are an AI Assistant named 'LexWay AI' for the Tamil Nadu Police Department. 
             Provide a comprehensive and authoritative response to the query.
 
             Query: {query}
@@ -281,32 +280,106 @@ class TamilNaduPoliceLegalAssistant:
                 'sources': []
             }
 
+st.set_page_config(
+    page_title="LexWay AI",
+    page_icon="⚖️",
+    layout="wide"
+)
+
+
 def create_streamlit_interface():
     """
     Enhanced Streamlit interface for Tamil Nadu Police Legal Assistant
     """
-    # Page configuration
-    st.set_page_config(
-        page_title="Tamil Nadu Police Legal Assistant",
-        page_icon="🚔",
-        layout="wide"
-    )
-
+    
     # Custom CSS for improved UI
     st.markdown("""
     <style>
-    .reportview-container {
-        background: #f0f2f6;
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+    
+    /* Dark Theme Base Styles */
+    .stApp {
+        background-color: #121212;
+        color: #e0e0e0;
+        font-family: 'Inter', sans-serif;
     }
-    .sidebar .sidebar-content {
-        background: #e6e9ef;
-    }
+    
+    /* Markdown Styling */
     .stMarkdown {
-        font-family: 'Arial', 'Noto Sans Tamil', sans-serif;
+        color: #e0e0e0;
     }
+    .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
+        color: #4e73df;
+    }
+    
+    /* Buttons */
     .stButton>button {
-        background-color: #4e73df;
-        color: white;
+        background-color: #4e73df !important;
+        color: white !important;
+        border-radius: 6px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .stButton>button:hover {
+        background-color: #3a5fc4 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(78, 115, 223, 0.3);
+    }
+    
+    /* Sidebar */
+    .sidebar .sidebar-content {
+        background-color: #1e1e1e;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        color: #e0e0e0;
+    }
+    
+    /* Chat Messages */
+    .stChatMessage {
+        background-color: #1e1e1e;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 10px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        color: #e0e0e0;
+    }
+    
+    /* User Message */
+    .stChatMessage.user {
+        background-color: #2c3e50;
+    }
+    
+    /* Assistant Message */
+    .stChatMessage.assistant {
+        background-color: #1e1e1e;
+        border: 1px solid #4e73df;
+    }
+    
+    /* Chat Input */
+    .stChatInput {
+        background-color: #1e1e1e;
+        border-radius: 10px;
+        border: 1px solid #4e73df;
+        color: #e0e0e0;
+    }
+    
+    /* Radio Button */
+    .stRadio>div {
+        background-color: #1e1e1e;
+        color: #e0e0e0;
+    }
+    
+    /* File Uploader */
+    .stFileUploader>div {
+        background-color: #1e1e1e;
+        color: #e0e0e0;
+        border: 1px dashed #4e73df;
+    }
+    
+    /* Spinner */
+    .stSpinner>div {
+        border-color: #4e73df transparent #4e73df transparent;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -316,7 +389,8 @@ def create_streamlit_interface():
 
     # Sidebar for document upload and language selection
     with st.sidebar:
-        st.title("🚔 Police Legal Assistant")
+        st.title("LexWay AI")
+        st.markdown("## Police Legal Assistant")
         st.markdown("### Comprehensive Legal Information Support")
         
         # Language Selection
@@ -349,7 +423,8 @@ def create_streamlit_interface():
                 assistant.document_search.load_uploaded_documents(temp_dir)
 
     # Main interface
-    st.title("Tamil Nadu Police Legal Assistant" if language == 'English' else "தமிழ்நாடு காவல்துறை சட்ட உதவி")
+    st.title("LexWay AI")
+    st.markdown("## Tamil Nadu Police Legal Assistant" if language == 'English' else "## தமிழ்நாடு காவல்துறை சட்ட உதவி")
     st.markdown("Providing accurate and comprehensive legal information." if language == 'English' else "துல்லியமான மற்றும் விரிவான சட்ட தகவல்கள் வழங்குகிறது.")
 
     # Chat interface
@@ -382,8 +457,113 @@ def create_streamlit_interface():
             "content": response_data['response']
         })
 
+
+def create_about_page():
+    """
+    Create a comprehensive About page for the Tamil Nadu Police Legal Assistant
+    """
+
+    # Custom CSS for About page
+    st.markdown("""
+    <style>
+    .about-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #1e1e1e;
+        border-radius: 10px;
+        color: #e0e0e0;
+    }
+    .section-header {
+        color: #4e73df;
+        border-bottom: 2px solid #4e73df;
+        padding-bottom: 10px;
+        margin-top: 20px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    st.title("LexWay AI")
+    st.title("## About Tamil Nadu Police Legal Assistant")
+    
+    # About section with markdown formatting
+    st.markdown("""
+    ## Application Overview 
+
+    The **LexWay AI - Tamil Nadu Police Legal Assistant** is an advanced AI-powered platform designed to provide comprehensive legal information and support for:
+    - Citizens
+    - Legal professionals
+    - Law enforcement personnel
+
+    ## Key Features 
+
+    ### 1. Multilingual Support 
+    - Seamlessly switch between English and Tamil
+    - Accurate translations and context preservation
+
+    ### 2. Advanced Document Search
+    - Semantic search across multiple document sources
+    - Deep indexing of legal documents
+    - High-precision information retrieval
+
+    ### 3. Integrated Research Capabilities
+    - Combines local document search with web search results
+    - Comprehensive information gathering
+    - Cross-referencing multiple sources
+
+    ### 4. AI-Powered Intelligent Responses
+    - Generate precise, comprehensive legal information
+    - Contextual understanding
+    - Quick and accurate query resolution
+
+    ## Technology Architecture
+
+    ### Core Technologies
+    - **Programming Language**: Python
+    - **Web Framework**: Streamlit
+    - **AI Integration**: 
+      * LangChain
+      * HuggingFace Embeddings
+      * Groq AI Language Models
+
+    ### Search Mechanism
+    1. Multilingual semantic embeddings
+    2. Vector database indexing
+    3. Intelligent document chunking
+    4. Hybrid search strategy
+
+    ## Privacy and Security Commitment
+
+    We prioritize data protection through:
+    - No persistent storage of user queries
+    - Secure, encrypted API integrations
+    - Strict adherence to data protection guidelines
+
+    ## Usage Guidelines
+
+    1. Select preferred language (English/Tamil)
+    2. Optional: Upload additional legal documents
+    3. Enter your legal query in the chat interface
+    4. Receive comprehensive, sourced responses
+
+    ## Disclaimer
+
+    *This is an AI-assisted platform. While we strive for accuracy, always consult official sources and legal professionals for critical legal matters.*
+    """)
+
+
 def main():
-    create_streamlit_interface()
+    # Add a multipage configuration
+    pages = {
+        "Chat": create_streamlit_interface,
+        "About": create_about_page
+    }
+
+    # Determine which page to show
+    page = st.sidebar.radio("Navigate", list(pages.keys()))
+    
+    # Run the selected page
+    pages[page]()
 
 if __name__ == "__main__":
     main()
