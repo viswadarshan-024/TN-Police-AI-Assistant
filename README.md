@@ -97,7 +97,7 @@ LexWay AI is an innovative, AI-powered legal information platform specifically d
 
 ### License
 
-[MIT License]()
+[MIT License](LICENSE)
 
 ### Contact
 
